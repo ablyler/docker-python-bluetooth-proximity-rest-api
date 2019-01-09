@@ -1,0 +1,19 @@
+version: '2'
+services:
+  homebridge:
+    image: python-bluetooth-proximity-rest-api
+    restart: always
+    network_mode: host
+    privileged: true
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    volumes:
+      - .:/app
+      - /var/run/dbus:/var/run/dbus
+      - /sys/class/bluetooth:/sys/class/bluetooth
+      - /var/lib/bluetooth:/var/lib/bluetooth
+    environment:
+      - TZ=EST5EDT
+      - PGID=996
+      - PUID=999
+      - FLASK_APP=/app/your-daemon-or-script.py
